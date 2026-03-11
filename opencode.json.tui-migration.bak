@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "theme": "tokyonight",
   "autoupdate": true,
   "share": "manual",
   "default_agent": "research-write",
