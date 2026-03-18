@@ -234,7 +234,7 @@ def _save_incremental(papers: List[Dict], corpus_dir: Path, state_path: Path) ->
 def _write_paper_chunks(
     paper: Dict,
     chunks_dir: Path,
-    size: int = 150_000,
+    size: int = 50_000, # 150_000,
     overlap: int = 2_000,
 ) -> List[str]:
     """Write chunk file(s) for a single paper to chunks_dir immediately after loading.
@@ -323,7 +323,7 @@ def _make_helpers(context_ref: Dict[str, Any], buffers_ref: List[str]):
                     break
         return out
 
-    def chunk_indices(size: int = 150_000, overlap: int = 2000) -> List[Tuple[int, int]]:
+    def chunk_indices(size: int = 50_000, overlap: int = 2000) -> List[Tuple[int, int]]:
         """Calculate chunk boundaries for the concatenated corpus."""
         if size <= 0:
             raise ValueError("size must be > 0")
@@ -344,7 +344,7 @@ def _make_helpers(context_ref: Dict[str, Any], buffers_ref: List[str]):
 
     def write_chunks(
         out_dir: str,
-        size: int = 150_000,
+        size: int = 50_000,
         overlap: int = 2000,
         prefix: str = "chunk",
         encoding: str = "utf-8",
@@ -681,7 +681,7 @@ def cmd_load_corpus(args: argparse.Namespace) -> int:
                 chunk_paths = _write_paper_chunks(
                     paper,
                     Path(getattr(args, "chunks_dir", ".opencode/rlm_state/chunks")),
-                    size=getattr(args, "chunk_size", 150_000),
+                    size=getattr(args, "chunk_size", 50_000),
                     overlap=getattr(args, "chunk_overlap", 2_000),
                 )
                 print(
@@ -946,8 +946,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--chunk-size",
         dest="chunk_size",
         type=int,
-        default=150_000,
-        help="Maximum chars per chunk (default: 150000)",
+        default=50_000,
+        help="Maximum chars per chunk (default: 50000)",
     )
     p_corpus.add_argument(
         "--chunk-overlap",
